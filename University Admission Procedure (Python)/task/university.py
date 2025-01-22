@@ -5,5 +5,8 @@ if __name__ == "__main__":
     score2 = int(input())
     score3 = int(input())
     average = (score1 + score2 + score3) / 3
-    print(average)
-    print("Congratulations, you are accepted!")
+    print(f"{average}")
+    if average >= 60:
+        print("Congratulations, you are accepted!")
+    else:
+        print("We regret to inform you that we will not be able to offer you admission.")
