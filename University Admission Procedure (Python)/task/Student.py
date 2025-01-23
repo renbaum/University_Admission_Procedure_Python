@@ -8,6 +8,7 @@ class ResultsDepartment(Enum):
     Chemistry = 1
     Math = 2
     Computer_Science = 3
+    Admission = 4
 
 
 
@@ -37,20 +38,22 @@ class Student:
         return len(self.divisions) == 0
 
     def get_score(self) -> float:
+        s = 0
         match self.get_division():
             case Division.DepartmentNames.Engineering.value:
                 s = self.score[ResultsDepartment.Computer_Science.name] + self.score[ResultsDepartment.Math.name]
-                return s/2
+                s /= 2
             case Division.DepartmentNames.Mathematics.value:
-                return self.score[ResultsDepartment.Math.name]
+                s = float(self.score[ResultsDepartment.Math.name])
             case Division.DepartmentNames.Physics.value:
                 s = self.score[ResultsDepartment.Physics.name] + self.score[ResultsDepartment.Math.name]
-                return s/2
+                s /= 2
             case Division.DepartmentNames.Chemistry.value:
-                return self.score[ResultsDepartment.Chemistry.name]
+                s = float(self.score[ResultsDepartment.Chemistry.name])
             case Division.DepartmentNames.Biotech.value:
                 s = self.score[ResultsDepartment.Physics.name] + self.score[ResultsDepartment.Chemistry.name]
-                return s/2
+                s /= 2
+        return max(s, self.score[ResultsDepartment.Admission.name])
 
 
         return self.score

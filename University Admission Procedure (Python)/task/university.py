@@ -38,7 +38,7 @@ class University:
         with open(filename, "r") as file:
             for line in file:
                 applicant = line.strip().split()
-                student_list.append(Student(applicant[0], applicant[1], applicant[2:6], applicant[6:]))
+                student_list.append(Student(applicant[0], applicant[1], applicant[2:7], applicant[7:]))
         return student_list
     
     def place_applicant(self, applicant: Student) -> Student | None:
