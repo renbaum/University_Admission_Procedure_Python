@@ -21,6 +21,11 @@ class Division:
             print(f"{applicant.first} {applicant.last} {applicant.get_score()}")
         print()
 
+    def save_applicants(self):
+        with open(f"{self.name}.txt", "w") as file:
+            for applicant in self.applicants:
+                file.write(f"{applicant.first} {applicant.last} {applicant.get_score():.1f}\n")
+
 class DepartmentNames(Enum):
     Biotech = "Biotech"
     Chemistry = "Chemistry"

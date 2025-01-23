@@ -39,15 +39,18 @@ class Student:
     def get_score(self) -> float:
         match self.get_division():
             case Division.DepartmentNames.Engineering.value:
-                return self.score[ResultsDepartment.Computer_Science.name]
+                s = self.score[ResultsDepartment.Computer_Science.name] + self.score[ResultsDepartment.Math.name]
+                return s/2
             case Division.DepartmentNames.Mathematics.value:
                 return self.score[ResultsDepartment.Math.name]
             case Division.DepartmentNames.Physics.value:
-                return self.score[ResultsDepartment.Physics.name]
+                s = self.score[ResultsDepartment.Physics.name] + self.score[ResultsDepartment.Math.name]
+                return s/2
             case Division.DepartmentNames.Chemistry.value:
                 return self.score[ResultsDepartment.Chemistry.name]
             case Division.DepartmentNames.Biotech.value:
-                return self.score[ResultsDepartment.Chemistry.name]
+                s = self.score[ResultsDepartment.Physics.name] + self.score[ResultsDepartment.Chemistry.name]
+                return s/2
 
 
         return self.score

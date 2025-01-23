@@ -55,9 +55,14 @@ class University:
         for key, division in self.divisions.items():
             print(f"{division.name}:")
             division.print_applicants()
+
+    def save_applicants(self):
+        for key, division in self.divisions.items():
+            division.save_applicants()
     
 if __name__ == "__main__":
     number_of_applicants = int(input())
     university = University("University of Information Technology", number_of_applicants)
 
     university.print_applicants()
+    university.save_applicants()
