@@ -1,63 +1,9 @@
-from enum import Enum
 import shutil
 import os
+from Division import DepartmentNames, Division
+from Student import Student
 
-class Student:
-    def __init__(self, first: str, last: str, score: float, divisions: list):
-        self.first = first
-        self.last = last
-        self.score = score
-        self.divisions = divisions
 
-    @property
-    def name(self):
-        return f"{self.first} {self.last}"
-    
-    def get_division(self) -> str:
-        if len(self.divisions) > 0:
-            return self.divisions[0]
-        return DepartmentNames.Rejected.value
-    
-    def reject(self):
-        if len(self.divisions) > 0:
-            self.divisions.pop(0)
-            
-    def is_rejected(self) -> bool:
-        return len(self.divisions) == 0
-    
-    def get_score(self) -> float:
-        return self.score
-
-    def is_primary(self) -> bool:
-        return len(self.divisions) == 3
-    
-class Division:
-    def __init__(self, name: str, number_of_applicants: int):
-        self.applicants = []
-        self.name = name
-        self.number_of_applicants = number_of_applicants
-
-    def add_applicant(self, applicant: Student) -> Student | None:
-        if len(self.applicants) < self.number_of_applicants:
-            self.applicants.append(applicant)
-            return None
-
-        applicant.reject()
-        return applicant
-
-    def print_applicants(self):
-        self.applicants.sort(key=lambda x: (-x.score, x.name), reverse=False)
-        for applicant in self.applicants:
-            print(f"{applicant.first} {applicant.last} {applicant.get_score()}")
-        print()
-
-class DepartmentNames(Enum):
-    Biotech = "Biotech"
-    Chemistry = "Chemistry"
-    Engineering = "Engineering"
-    Mathematics = "Mathematics"
-    Physics = "Physics"
-    Rejected = "Rejected"
 
 
 class University:
@@ -69,6 +15,10 @@ class University:
 
         self.copy_file("applicants.txt", "applicants_copy.txt")
         self.students = self.load_applicants("applicants.txt")
+
+        self.deploy_student()
+
+    def deploy_student(self):
         while len(self.students) != 0:
             self.students.sort(key=lambda x: (x.get_division(), -x.get_score(), x.name), reverse=False)
             rejected_students = []
@@ -88,7 +38,7 @@ class University:
         with open(filename, "r") as file:
             for line in file:
                 applicant = line.strip().split()
-                student_list.append(Student(applicant[0], applicant[1], float(applicant[2]), applicant[3:]))
+                student_list.append(Student(applicant[0], applicant[1], applicant[2:6], applicant[6:]))
         return student_list
     
     def place_applicant(self, applicant: Student) -> Student | None:
